@@ -5,7 +5,7 @@
 <br/>
 [Simulation environment and airplane types](#simulation-environment-and-airplane-types)
 <br/>
-[Graphical Interface](#graphical-Interface)
+[Graphical interface](#graphical-interface)
 <br/>
 [Basic rules](#basic-rules)
 <br/>
@@ -78,7 +78,7 @@ describes an airport as a set of comma-separated values.
 Moreover, the descriptions of the various flights that will be simulated are described in a file called "flights_MAPID.txt" each line of which describes a flight.
 
 
-## Graphical Interface
+## Graphical interface
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The simulation environment in the graphical interface will be designed as one grid of 30 x 60 columns. Each square, represents a point on the simulation map and will consist of 16 x 16 pixels. Furthermore,
 we consider different color depictions for each square based on its
