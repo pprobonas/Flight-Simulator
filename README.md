@@ -82,30 +82,21 @@ Moreover, the descriptions of the various flights that will be simulated are des
 ## Graphical interface
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The simulation environment in the graphical interface will be designed as one grid of 30 x 60 columns. Each square, represents a point on the simulation map and will consist of 16 x 16 pixels. Furthermore,
-we consider different color depictions for each square based on its
+we consider different color depictions for each square, based on its
 altitude.
 
 <br/>
 
 ## Basic rules 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The routes of the airplanes to be simulated are described in
-file "flights_MAPID.txt". Once the user selects "Start" from the menu all flights will be checked in order to simulate only those that have a valid description.
-These are routes between different open airports and performed with an airplane type that can take off / land from those airports. Furthermore, the parameters specified for flight velocity, available fuel load and the flight height should not exceed
-the maximum values ​​for the airplane type as defined
-above. 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The routes of the airplanes to be simulated are described in the file "flights_MAPID.txt" ([Handling the input](#handling-the-input)). First, the user should press the load button and provide as input the name of the world he would like to load. The given example has the name "default". Once the user selects "Start" from the menu, all flights will be checked in order to simulate only those that have a valid description. These are routes between different open airports and performed with an airplane type that can take off and land from those airports. Furthermore, the parameters specified for flight velocity, available fuel load and the flight height should not exceed the maximum values ​​for the airplane type as defined above. 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Every point of the map corresponds to an area of 20x20 nm (nautical miles). Moreover, a 5-second interval corresponds to 1 minute of 
-real time.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Every point of the map corresponds to an area of 20x20 nm (nautical miles). Moreover, a 5-second interval corresponds to 1 minute of  real time.
 
 About the movement of airplanes:
-* Airplanes are moving at the speed of 
-take-off adnd landing, defined by each type, for the first and the last 10 nm of the flight.
-* While at intermediate points, they move steadily at flight speed
-which is defined in the flight description and which can not
-exceeds the maximum flight speed defined by the airplane type.
-* We think there is a crash between planes when they are in
-less than 2 nm and have a difference in their altitudes less than
+* Airplanes are moving at the speed of take-off and landing, defined by each type, for the first and the last 10 nm of the flight.
+* While at intermediate points, they move steadily at flight speed which is defined in the flight description and which can not exceeds the maximum flight speed defined by the airplane type.
+* We think there is a crash between airplanes when they are in less than 2 nm and have a difference in their altitudes less than
 500 feet.
 * If an airplane is at the same or lower altitude than the one of it's current position then we consider that the flight has been crashed.
 
@@ -113,11 +104,10 @@ less than 2 nm and have a difference in their altitudes less than
 
 ## Route calculation algorithm
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; A greedy algorithm was used to calculate the paths of the planes. Each flight will possibly change its direction only when it reaches the center of a 20x20 base block. The starting orientation of a plane is the one that its source airport has.
-Then, to choose the appropriate direction, it calculates which adjacent block with height less than its own (in order to avoid a crash) minimizes its distance from the destination block with the restriction that the plane should not head to the block that it was when it made its previous decision. The destination block was chosen to be the previous of the destination airport, considering its orientation. This, ensures that the plane must land at the airport
-destination in the appropriate direction. When an aircraft must make a new decision and the only block that will not lead to a crash is the one that it was previously, then it makes a random choice. For the pixels that is in between of two basic blocks, all it does is moving by following the direction given by its previous decision.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; A greedy algorithm was used to calculate the paths of the aircrafts. Each flight will possibly change its direction only when it reaches the center of a 20x20 base block. The starting orientation of a plane is the one that its source airport has.
+Then, to choose the appropriate direction, it calculates which adjacent block with height less than its own (in order to avoid a crash) minimizes its distance from the destination block with the restriction that the plane should not head to the block that it was when it made its previous decision. The destination block was chosen to be the previous square of the destination airport, considering its orientation. This choice ensures that the airplane should land at the destination airport with the appropriate direction. When an aircraft must make a new decision and the only block that will not lead to a crash is the one that it was previously, then it makes a random choice. For the pixels that is in between of two basic blocks, all it does is following the direction given by its previous decision (when it was in the middle of the square).
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The main advantage of the above algorithm is that it is heuristic, so it does not require heavy computations. Apart from that, if there are no "obstacles" in front of a plane it mimics the optimal route calculation algorithm. A further advantage is that if the aircraft still recovers height, the maneuver to avoid the crash will may give the plane the appropriate time to get the height needed in order to get to that block, thus following the optimal course. One negative is that in case an airplane has reached the maximum flight height and the obstacles follow some specific morphologies, it may make circles and simply wait for its fuel to end.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The main advantage of the above algorithm is that it is heuristic, so it does not require heavy computations. Apart from that, if there are no "obstacles" in front of a plane it mimics the optimal route calculation algorithm. A further advantage is that if the aircraft still recovers height, the maneuver it does in order to avoid the crash will may give the plane the appropriate time to get the height needed in order to get to that block, thus following the optimal route. One negative is that if an airplane has reached the maximum flight height and the obstacles in front follow some specific morphologies, it may make circles and simply wait for its fuel to end.
 
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; There are three videos in the "Videos and images" folder that depict three typical examples of the above algorithm. In each video, airplanes are sped up for time saving, and colors are different in order to make the examples more clear. In the video "avoidObstacles" we see an example in which the airplane can overcome the obstacles ahead and successfully reach its destination. In "forcedCrash" we see an example in which the airport has more altitude than the maximum height of the flight, so the plane will be crashed. In the "loop" video we see an example in which the airplane is captured in an infinite loop (until the end of its fuel) due to the morphology of the final obstacles.
@@ -138,7 +128,7 @@ destination in the appropriate direction. When an aircraft must make a new decis
 
 ### Start 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; In the beginning of the simulation, the main class  is responsible for making the basic frame and whatever it needs. Then if the load button is pressed, the necessary methods are called to load the simulation map, airports and flights. When the start button is pressed,the main class, creates one thread for each flight. After that, it make two more threads, one to keep the simulation time with a java timer and one more, the server thread, to act as a beacon responsible for checking flights for collisions. The second one is waiting in a socket so that whenever a request comes, it makes a new thread ("arbitrators") which will communicate with the flight that made the initial request in order to check if it should collide with another flight. When the stop button is pressed, the simulator class is responsible for interrupting its childer threads properly and its children theirs respectively. 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; In the beginning of the simulation, the main class  is responsible for making the basic frame and whatever it needs. Then if the load button is pressed, the necessary methods are called to load the simulation map, airports and flights. When the start button is pressed, the main class, creates one thread for each flight. After that, it makes two more threads, one to keep the simulation time with a java timer and one more, the server thread, to act as a beacon responsible for checking flights for collisions. The second one is waiting in a socket so that whenever a request comes, it makes a new thread ("arbitrators") which will communicate with the flight that made the initial request in order to check if it should collide with another flight. When the stop button is pressed, the simulator class is responsible for interrupting its children threads properly and its children theirs respectively. 
 
 ### Flights
 
@@ -146,7 +136,7 @@ destination in the appropriate direction. When an aircraft must make a new decis
 
 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Every such thread, when born (from the simulator class), it starts a timer in order to wake up itself when it's time for it to start. Then, depending on the phase and the type of the aircraft, every flight chooses the appropriate timer, in order to wake up when it has to make his next move horizontally and/or vertically. Then, it checks whether it should be crushed or not due to its height or its current fuel. When it changes one of its three directions (width, length, height), that thread starts a new thread that acts as a client on the server thread (which is waiting in a socket). It then starts a communication in order to announce its new coordinates. Then, the "arbitrator" thread that "server" made, checks the coordinates of all active threads and then denotes wheter they should collide. If that is the case, a specific arbitrator will interrupt properly the flights to be crashed.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Every such thread when born (from the simulator class), starts a timer in order to wake up itself when it's time for it to start. Then, depending on the phase and the type of the aircraft, every flight chooses the appropriate timer, in order to wake up when it has to make his next move horizontally and/or vertically. Then, it checks whether it should be crushed or not due to its height or its current fuel. When it changes one of its three directions (width, length, height), that thread starts a new thread that acts as a client on the server thread (which is waiting in a socket). It then starts a communication in order to announce its new coordinates. Then, the "arbitrator" thread that "server" made, checks the coordinates of all active threads and then denotes wheter they should collide or not. If that is the case, a specific arbitrator will interrupt properly the flights to be crashed.
 
 <br/>
 
@@ -174,8 +164,8 @@ destination in the appropriate direction. When an aircraft must make a new decis
 * Unique landing gear airport ID
 * Flight name
 * Type of airplane to be used for flight: 1 => single motor, 2 => turboprop, 3 => jet
-* Flight speed at knots (in order for the flight to be valid, it should not exceed the corresponding maximum value for that airplane type)
-* Desired flight height to feet (in order for the flight to be valid, it should not exceed the corresponding maximum value for that airplane type)
+* Flight speed in knots (in order for the flight to be valid, it should not exceed the corresponding maximum value for that airplane type)
+* Desired flight height in feets (in order for the flight to be valid, it should not exceed the corresponding maximum value for that airplane type)
 * Fuel available in kg (in order for the flight to be valid, it should not exceed the corresponding maximum value for that airplane type)
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Example 1,0,1,2,Flight Α32,1,100,3000,100:&nbsp;&nbsp;&nbsp; Flight with: the unique identifier "1", a name  "Flight A32", between airports with 1 & 2 IDs,  should be run on a single-motor airplane. In addition, the flight simulation will begin immediately, and we have determined that the flight speed will be 100 knots, the flight height is 3000 feet, and during the take-off phase the available amount of fuel is 100 kg.
