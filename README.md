@@ -43,8 +43,7 @@
 sea) 
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; In the context of the implementation, we consider three different types of airplanes:
-single-motor, turboprop and jet. Operation and performance of each airplane
-is characterized by a number of parameters:
+single-motor, turboprop and jet. Operation and performance of each airplane is characterized by a number of parameters:
 * Take-off and landing speed
 * Maximum flight speed
 * Maximum amount of fuel
@@ -74,10 +73,9 @@ used by all types of airplanes)
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Information about the simulation space is provided by a file that
 contains 30 lines each of which consists of 60 numbers
 separated by a comma, expressing the altitude (in meters) of the corresponding area. Files with this information should be named
-"World_MAPID.txt". Information of the available airports is contained in one
-another file that is called "airports_MAPID.txt" each line of which
+"World_MAPID.txt". Information of the available airports is contained in another file that is called "airports_MAPID.txt" each line of which
 describes an airport as a set of comma-separated values.
-Moreover, the descriptions of the various flights that will be simulated are described in a file called "flights_MAPID.txt" each line of which describes a flight.
+Moreover, the descriptions of the various flights that will be simulated are described in a file called "flights_MAPID.txt" each line of which describes a flight. More details are in the [Handling the input](#handling-the-input) section.
 
 <br/>
 
@@ -187,7 +185,6 @@ destination in the appropriate direction. When an aircraft must make a new decis
 
 ## Screenshots
 
-<hr>
 
 <br />
 <p align="center">Two aircraft must have a difference of two nautical miles (horizontal) and 500 feet (height) in order not to collide:</p>
