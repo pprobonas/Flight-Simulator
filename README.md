@@ -1,5 +1,7 @@
 # Visual Flight Simulator in Java
 
+<div style="border:1px solid gray; padding-left:20px;" >
+<br />
 
 [Description](#description)
 <br/>
@@ -17,7 +19,8 @@
 <br/>
 [Screenshots](#screenshots)
 
-
+<br />
+</div>
 
 
 
