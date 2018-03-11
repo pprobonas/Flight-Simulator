@@ -14,6 +14,8 @@
 [Implementation details](#implementation-details)
 <br/>
 [Handling the input](#handling-the-input)
+<br/>
+[Screenshots](#screenshots)
 
 
 
@@ -35,7 +37,7 @@
 
 ## Simulation environment and airplane types
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The simulation space is modeled as a 30-line and 60-column grid. At each position of the grid corresponds a point of the simulation space that is characterized, among other things, by the following properties:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The simulation space is modeled as a 30-line and 60-column grid. At each square of the grid corresponds a point of the simulation space that is characterized, among other things, by the following properties:
 *  Coordinates X, Y
 *  Altitude in meters (integer >= 0, with value 0 corresponding to existence
 sea) 
@@ -172,6 +174,45 @@ destination in the appropriate direction. When an aircraft must make a new decis
 * Fuel available in kg (in order for the flight to be valid, it should not exceed the corresponding maximum value for that airplane type)
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Example 1,0,1,2,Flight Α32,1,100,3000,100:&nbsp;&nbsp;&nbsp; Flight with: the unique identifier "1", a name  "Flight A32", between airports with 1 & 2 IDs,  should be run on a single-motor airplane. In addition, the flight simulation will begin immediately, and we have determined that the flight speed will be 100 knots, the flight height is 3000 feet, and during the take-off phase the available amount of fuel is 100 kg.
+
+
+
+## Screenshots
+
+<br />
+<p align="center">Two aircraft must have a difference of two nautical miles (horizontal) and 500 feet (height) in order not to collide:</p>
+<p align="center">
+  <img src ="https://raw.githubusercontent.com/pprobonas/Flight-Simulator/master/Videos%20and%20images/Screenshot1.JPG" width="600" height="280" />
+</p>
+<br />
+
+<br />
+<p align="center">"Online" details for every airport of the simulation:</p>
+<p align="center">
+  <img src ="https://raw.githubusercontent.com/pprobonas/Flight-Simulator/master/Videos%20and%20images/Screenshot2.JPG" width="600" height="280" />
+</p>
+<br />
+
+<br />
+<p align="center">"Online" details for every aircraft of the simulation:</p>
+<p align="center">
+  <img src ="https://raw.githubusercontent.com/pprobonas/Flight-Simulator/master/Videos%20and%20images/Screenshot3.JPG" width="600" height="280" />
+</p>
+<br />
+
+<br />
+<p align="center">"Online" details for every flight of the simulation:</p>
+<p align="center">
+  <img src ="https://raw.githubusercontent.com/pprobonas/Flight-Simulator/master/Videos%20and%20images/Screenshot4.JPG" width="600" height="280" />
+</p>
+<br />
+
+<br />
+<p align="center">On mouseover:</p>
+<p align="center">
+  <img src ="https://raw.githubusercontent.com/pprobonas/Flight-Simulator/master/Videos%20and%20images/Screenshot5.png" width="600" height="280" />
+</p>
+<br />
 
 
 
