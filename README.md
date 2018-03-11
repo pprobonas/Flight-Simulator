@@ -1,6 +1,6 @@
-# Visual Flight Simulator in Java
+<center><h1>Visual Flight Simulator in Java</h1></center>
 
-
+<br/>
 
 [Description](#description)
 <br/>
@@ -18,13 +18,10 @@
 <br/>
 [Screenshots](#screenshots)
 
-<br />
 
 
 
-
-
-
+<br/>
 
 ## Description
 
@@ -36,6 +33,7 @@
 </p>
 <br />
 
+<br/>
 
 ## Simulation environment and airplane types
 
@@ -81,12 +79,15 @@ another file that is called "airports_MAPID.txt" each line of which
 describes an airport as a set of comma-separated values.
 Moreover, the descriptions of the various flights that will be simulated are described in a file called "flights_MAPID.txt" each line of which describes a flight.
 
+<br/>
 
 ## Graphical interface
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The simulation environment in the graphical interface will be designed as one grid of 30 x 60 columns. Each square, represents a point on the simulation map and will consist of 16 x 16 pixels. Furthermore,
 we consider different color depictions for each square based on its
 altitude.
+
+<br/>
 
 ## Basic rules 
 
@@ -110,6 +111,8 @@ less than 2 nm and have a difference in their altitudes less than
 500 feet.
 * If an airplane is at the same or lower altitude than the one of it's current position then we consider that the flight has been crashed.
 
+<br/>
+
 ## Route calculation algorithm
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; A greedy algorithm was used to calculate the paths of the planes. Each flight will possibly change its direction only when it reaches the center of a 20x20 base block. The starting orientation of a plane is the one that its source airport has.
@@ -131,6 +134,8 @@ destination in the appropriate direction. When an aircraft must make a new decis
 </p>
 <br />
 
+<br/>
+
 ## Implementation details
 
 ### Start 
@@ -145,7 +150,7 @@ destination in the appropriate direction. When an aircraft must make a new decis
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Every such thread, when born (from the simulator class), it starts a timer in order to wake up itself when it's time for it to start. Then, depending on the phase and the type of the aircraft, every flight chooses the appropriate timer, in order to wake up when it has to make his next move horizontally and/or vertically. Then, it checks whether it should be crushed or not due to its height or its current fuel. When it changes one of its three directions (width, length, height), that thread starts a new thread that acts as a client on the server thread (which is waiting in a socket). It then starts a communication in order to announce its new coordinates. Then, the "arbitrator" thread that "server" made, checks the coordinates of all active threads and then denotes wheter they should collide. If that is the case, a specific arbitrator will interrupt properly the flights to be crashed.
 
-
+<br/>
 
 ## Handling the input
 
@@ -177,9 +182,12 @@ destination in the appropriate direction. When an aircraft must make a new decis
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Example 1,0,1,2,Flight Α32,1,100,3000,100:&nbsp;&nbsp;&nbsp; Flight with: the unique identifier "1", a name  "Flight A32", between airports with 1 & 2 IDs,  should be run on a single-motor airplane. In addition, the flight simulation will begin immediately, and we have determined that the flight speed will be 100 knots, the flight height is 3000 feet, and during the take-off phase the available amount of fuel is 100 kg.
 
+<br/>
 
 
 ## Screenshots
+
+<hr>
 
 <br />
 <p align="center">Two aircraft must have a difference of two nautical miles (horizontal) and 500 feet (height) in order not to collide:</p>
@@ -188,12 +196,16 @@ destination in the appropriate direction. When an aircraft must make a new decis
 </p>
 <br />
 
+<hr>
+
 <br />
 <p align="center">"Online" details for every airport of the simulation:</p>
 <p align="center">
   <img src ="https://raw.githubusercontent.com/pprobonas/Flight-Simulator/master/Videos%20and%20images/Screenshot2.JPG" width="600" height="280" />
 </p>
 <br />
+
+<hr>
 
 <br />
 <p align="center">"Online" details for every aircraft of the simulation:</p>
@@ -202,12 +214,16 @@ destination in the appropriate direction. When an aircraft must make a new decis
 </p>
 <br />
 
+<hr>
+
 <br />
 <p align="center">"Online" details for every flight of the simulation:</p>
 <p align="center">
   <img src ="https://raw.githubusercontent.com/pprobonas/Flight-Simulator/master/Videos%20and%20images/Screenshot4.JPG" width="600" height="280" />
 </p>
 <br />
+
+<hr>
 
 <br />
 <p align="center">On mouseover:</p>
@@ -216,6 +232,7 @@ destination in the appropriate direction. When an aircraft must make a new decis
 </p>
 <br />
 
+<hr>
 
 
 
